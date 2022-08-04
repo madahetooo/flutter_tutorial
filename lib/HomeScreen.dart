@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/ListViewWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,96 +11,119 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Fluttor Tutorial App'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(35),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 4),
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.green,
-                    offset: Offset(6.0, 6.0),
+        child:SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                        ListViewWidget()));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(35),
+                    margin: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 4),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.green,
+                          offset: Offset(6.0, 6.0),
+                        ),
+                      ],
+                    ),
+                    child: const Text('Basic widget app',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
-                ],
-              ),
-              child: const Text(
-                "Basic widget app",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
                 ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(35),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 4),
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.green,
-                    offset: Offset(6.0, 6.0),
+                Container(
+                  padding: const EdgeInsets.all(35),
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 4),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.green,
+                        offset: Offset(6.0, 6.0),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: const Text(
-                "Todolist app",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(35),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 4),
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.green,
-                    offset: Offset(6.0, 6.0),
+                  child: const Text(
+                    "Todolist app",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
-                ],
-              ),
-              child: const Text(
-                "World Timer app",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
                 ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(35),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 4),
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.green,
-                    offset: Offset(6.0, 6.0),
+                Container(
+                  padding: const EdgeInsets.all(35),
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 4),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.green,
+                        offset: Offset(6.0, 6.0),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: const Text(
-                "Amazon Clone App",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  child: const Text(
+                    "World Timer app",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  //  GestureDetector(
+                  //   onTap:(){
+                  //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                  //         AlertDialog()));
+                  //   },
+                  //   child: const Text("Sign Up",
+                  //     style: TextStyle(
+                  //         color: Colors.redAccent,
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 15
+                  //     ),),
+                  // ),
                 ),
-              ),
+                Container(
+                  padding: const EdgeInsets.all(35),
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 4),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.green,
+                        offset: Offset(6.0, 6.0),
+                      ),
+                    ],
+                  ),
+                  child: const Text(
+                    "Chat App",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
+
       ),
       drawer: Drawer(
         child: Column(

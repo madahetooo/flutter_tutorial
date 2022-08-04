@@ -70,42 +70,47 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
-          child:  Container(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:<Widget> [
-                  SizedBox(height: 45),
-                  emailField,
-                  SizedBox(height: 30),
-                  passwordField,
-                  SizedBox(height: 45),
-                  loginButton,
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget> [
-                      Text("Don't have an account!?"),
-                      GestureDetector(
-                        onTap:(){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                          RegistrationScreen()));
-                        },
-                        child: Text("Sign Up",
-                        style: TextStyle(
-                          color: Colors.redAccent,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15
-                        ),),
-                      ),
+          child:  Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:<Widget> [
+                SizedBox(
+                  height: 180,
+                  child: Image.asset(
+                    "assets/flutterlogo.png",
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                SizedBox(height: 45),
+                emailField,
+                SizedBox(height: 30),
+                passwordField,
+                SizedBox(height: 45),
+                loginButton,
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget> [
+                    const Text("Don't have an account!?"),
+                    GestureDetector(
+                      onTap:(){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                        RegistrationScreen()));
+                      },
+                      child: const Text("Sign Up",
+                      style: TextStyle(
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15
+                      ),),
+                    ),
 
-                    ],
-                  )
+                  ],
+                )
 
-                ],
-              ),
+              ],
             ),
           ),
         ),
