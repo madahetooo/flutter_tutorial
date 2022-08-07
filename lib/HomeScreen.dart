@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/BMICalculator.dart';
 import 'package:flutter_tutorial/ListViewWidget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -37,6 +38,32 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     child: const Text('Basic widget app',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                        const BMICalculator()));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(35),
+                    margin: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 4),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.green,
+                          offset: Offset(6.0, 6.0),
+                        ),
+                      ],
+                    ),
+                    child: const Text('BMI Calculator',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
