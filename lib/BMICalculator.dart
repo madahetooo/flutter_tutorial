@@ -152,13 +152,11 @@ class _BMICalculatorState extends State<BMICalculator> {
       ),
     );
   }
-
   void changeIndex(int index) {
     setState(() {
       currentIndex = index;
     });
   }
-
   void calculateBmi(double height, double weight) {
     double finalResult = weight / (height * height / 10000);
     String bmiResult = finalResult.toStringAsFixed(2);
@@ -166,7 +164,6 @@ class _BMICalculatorState extends State<BMICalculator> {
       result = bmiResult;
     });
   }
-
   Widget radioButton(String gender, Color color, int index) {
     return Expanded(
         child: Container(

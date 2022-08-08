@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/BMICalculator.dart';
-import 'package:flutter_tutorial/ListViewWidget.dart';
+import 'package:flutter_tutorial/NavigationBarExample.dart';
+import 'package:flutter_tutorial/TodoListWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Fluttor Tutorial App'),
       ),
       body: Center(
-        child:SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -20,9 +21,11 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                        ListViewWidget()));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationBarExample()));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(35),
@@ -37,7 +40,37 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const Text('Basic widget app',
+                    child: const Text(
+                      'Basic widget app',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BMICalculator()));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(35),
+                    margin: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 4),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.green,
+                          offset: Offset(6.0, 6.0),
+                        ),
+                      ],
+                    ),
+                    child: const Text(
+                      'BMI Calculator',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -47,8 +80,11 @@ class HomeScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                        const BMICalculator()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TodoListWidget()));
+
                   },
                   child: Container(
                     padding: const EdgeInsets.all(35),
@@ -63,32 +99,12 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const Text('BMI Calculator',
+                    child: const Text(
+                      "Todolist app",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(35),
-                  margin: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 4),
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.green,
-                        offset: Offset(6.0, 6.0),
-                      ),
-                    ],
-                  ),
-                  child: const Text(
-                    "Todolist app",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -150,7 +166,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-
       ),
       drawer: Drawer(
         child: Column(
