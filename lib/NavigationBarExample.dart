@@ -26,7 +26,6 @@ class _NavigationBarState extends State<NavigationBarExample> {
      Text('Search Screen',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
      Text('Porfile Screen',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

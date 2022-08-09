@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/dbhelper.dart';
 
 class TodoListWidget extends StatefulWidget {
   const TodoListWidget({Key? key}) : super(key: key);
@@ -8,6 +9,13 @@ class TodoListWidget extends StatefulWidget {
 }
 
 class _TodoListWidgetState extends State<TodoListWidget> {
+  final dbhelper = Databasehelper.instance;
+  final todoController = TextEditingController();
+  bool validated = true;
+  String errMessage = "";
+  String todoedited = "";
+  List<Widget> childern = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,24 +36,13 @@ class _TodoListWidgetState extends State<TodoListWidget> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            myCard('Go To Gym'),
-            myCard('Go To Sleep'),
-            myCard('Record a Video'),
-            myCard('Buy Fruits'),
-            myCard('Pay Internet fees'),
-            myCard('Study Flutter'),
-            myCard('Purchase the kid school money'),
-            myCard('Purchase the kid school money'),
-            myCard('Purchase the kid school money'),
-            myCard('Purchase the kid school money'),
-            myCard('Purchase the kid school money'),
-            myCard('Purchase the kid school money'),
-            myCard('Purchase the kid school money'),
+            myCard('task')
           ],
         ),
       ),
     );
   }
+
   Widget myCard(String task) {
     return Card(
       elevation: 5.0,
@@ -54,20 +51,24 @@ class _TodoListWidgetState extends State<TodoListWidget> {
         padding: const EdgeInsets.all(5.0),
         child: ListTile(
           title: Text(
+
             "$task",
             style: const TextStyle(fontSize: 18.0),
           ),
           onLongPress: () {
-            print("Should get deleted");
+            // dbhelper.deleteTodo(['id']);
           },
         ),
       ),
     );
   }
+
   void showAlertDialog() {
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -76,8 +77,15 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
+                    controller: todoController,
                     autofocus: true,
+                    onChanged: (value){
+                      todoedited = value;
+                    },
                     style: TextStyle(fontSize: 10.0),
+                    decoration: InputDecoration(
+                      errorText: validated ? null : errMessage,
+                    ),
                   ),
                   SizedBox(
                     height: 10.0,
@@ -87,7 +95,21 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                     children: [
                       // ignore: deprecated_member_use
                       RaisedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (todoController.text.isEmpty) {
+                            setState(() {
+                              errMessage = "Can't Be Empty";
+                              validated = false;
+                            });
+                          } else if (todoController.text.length > 512) {
+                            setState(() {
+                              errMessage = "Too Many Characters";
+                              validated = false;
+                            });
+                          } else {
+                            addTodo();
+                          }
+                        },
                         color: Colors.purple,
                         child: const Text(
                           "Add",
@@ -98,6 +120,22 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                   )
                 ],
               ),
-            ));
+            );
+          });
+        });
+  }
+
+  void addTodo() async{
+    Map<String,dynamic> todo = {
+      Databasehelper.columnName : todoedited,
+    };
+   final id =  await dbhelper.insert(todo);
+    print(id);
+    Navigator.pop(context);
+    todoedited = "";
+    setState((){
+      validated = true;
+      errMessage="";
+    });
   }
 }
