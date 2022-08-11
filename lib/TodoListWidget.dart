@@ -15,55 +15,24 @@ class _TodoListWidgetState extends State<TodoListWidget> {
   String errMessage = "";
   String todoedited = "";
   List<Widget> childern = [];
+  var myTodos = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text(
-          'TodoList App',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: showAlertDialog,
-        child: Icon(Icons.add),
-        backgroundColor: Colors.purple,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            myCard('task')
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget myCard(String task) {
-    return Card(
-      elevation: 5.0,
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      child: Container(
-        padding: const EdgeInsets.all(5.0),
-        child: ListTile(
-          title: Text(
-
-            "$task",
-            style: const TextStyle(fontSize: 18.0),
-          ),
-          onLongPress: () {
-            // dbhelper.deleteTodo(['id']);
-          },
-        ),
-      ),
-    );
+  void addTodo() async {
+    Map<String, dynamic> todo = {
+      Databasehelper.columnName: todoedited,
+    };
+    final id = await dbhelper.insert(todo);
+    // print(id);
+    Navigator.of(context,rootNavigator: true).pop();
+    todoedited = "";
+    setState(() {
+      validated = true;
+      errMessage = "";
+    });
   }
 
   void showAlertDialog() {
+    todoController.text = "";
     showDialog(
         context: context,
         builder: (context) {
@@ -79,7 +48,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                   TextField(
                     controller: todoController,
                     autofocus: true,
-                    onChanged: (value){
+                    onChanged: (value) {
                       todoedited = value;
                     },
                     style: TextStyle(fontSize: 10.0),
@@ -87,8 +56,8 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                       errorText: validated ? null : errMessage,
                     ),
                   ),
-                  SizedBox(
-                    height: 10.0,
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +82,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
                         color: Colors.purple,
                         child: const Text(
                           "Add",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontSize: 18.0),
                         ),
                       ),
                     ],
@@ -125,17 +94,93 @@ class _TodoListWidgetState extends State<TodoListWidget> {
         });
   }
 
-  void addTodo() async{
-    Map<String,dynamic> todo = {
-      Databasehelper.columnName : todoedited,
-    };
-   final id =  await dbhelper.insert(todo);
-    print(id);
-    Navigator.pop(context);
-    todoedited = "";
-    setState((){
-      validated = true;
-      errMessage="";
+  Future<bool> query() async {
+    myTodos = [];
+    childern = [];
+    var allTodos = await dbhelper.queryAll();
+    allTodos?.forEach((todo) {
+      myTodos.add(todo.toString());
+      childern.add(Card(
+        elevation: 5.0,
+        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+        child: Container(
+          padding: const EdgeInsets.all(5.0),
+          child: ListTile(
+            title: Text(
+              todo['todo'], // Value
+              style: const TextStyle(fontSize: 18.0),
+            ),
+            onLongPress: () {
+              dbhelper.deleteTodo(todo['id']);
+              setState(() {});
+            },
+          ),
+        ),
+      ));
     });
+    return Future.value(true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      builder: (context, snap) {
+        if (snap.hasData == null) {
+          return Center(
+            child: Text("No Data"),
+          );
+        } else {
+          if (myTodos.length == 0) {
+            return Scaffold(
+              backgroundColor: Colors.black,
+              appBar: AppBar(
+                title: Text(
+                  'My Tasks',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.black,
+                centerTitle: true,
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: showAlertDialog,
+                child: Icon(Icons.add),
+                backgroundColor: Colors.purple,
+              ),
+              body: const Center(
+                child: Text(
+                  "No Task Available",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+            );
+          } else {
+            return Scaffold(
+              backgroundColor: Colors.black,
+              appBar: AppBar(
+                title: Text(
+                  'My Tasks',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.black,
+                centerTitle: true,
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: showAlertDialog,
+                child: Icon(Icons.add),
+                backgroundColor: Colors.purple,
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: childern,
+                ),
+              ),
+            );
+          }
+        }
+      },
+      future: query(),
+    );
   }
 }
+
+//
