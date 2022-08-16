@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/BMICalculator.dart';
 import 'package:flutter_tutorial/NavigationBarExample.dart';
 import 'package:flutter_tutorial/TodoListWidget.dart';
+import 'package:flutter_tutorial/worldtimeapp/home.dart';
+import 'package:flutter_tutorial/worldtimeapp/loading.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -108,38 +110,47 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(35),
-                  margin: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 4),
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.green,
-                        offset: Offset(6.0, 6.0),
-                      ),
-                    ],
-                  ),
-                  child: const Text(
-                    "World Timer app",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                GestureDetector(
+                  onTap: (){
+                    // Navigator.of(context).pushNamed('/home');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Loading()));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(35),
+                    margin: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 4),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.green,
+                          offset: Offset(6.0, 6.0),
+                        ),
+                      ],
                     ),
+                    child: const Text(
+                      "World Timer app",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    //  GestureDetector(
+                    //   onTap:(){
+                    //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    //         AlertDialog()));
+                    //   },
+                    //   child: const Text("Sign Up",
+                    //     style: TextStyle(
+                    //         color: Colors.redAccent,
+                    //         fontWeight: FontWeight.bold,
+                    //         fontSize: 15
+                    //     ),),
+                    // ),
                   ),
-                  //  GestureDetector(
-                  //   onTap:(){
-                  //     Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  //         AlertDialog()));
-                  //   },
-                  //   child: const Text("Sign Up",
-                  //     style: TextStyle(
-                  //         color: Colors.redAccent,
-                  //         fontWeight: FontWeight.bold,
-                  //         fontSize: 15
-                  //     ),),
-                  // ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(35),
