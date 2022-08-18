@@ -14,7 +14,7 @@ import 'package:flutter_tutorial/worldtimeapp/home.dart';
 import 'ToastExample.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/loading',
+  home: Loading(),
   routes: {
     '/tabbarwidget' :(context) => TabbarWidget(),
     '/home' :(context) => Home(),

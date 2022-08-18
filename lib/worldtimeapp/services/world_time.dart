@@ -15,9 +15,7 @@ class WorldTime{
 
   Future<void> getTime() async {
     try{
-
-      var url = Uri.parse('http://worldtimeapi.org/api/timezone/Africa/Cairo');
-      var response = await get(url); // Response
+      Response response = await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
       Map data = jsonDecode(response.body);
 
       String dateTime = data['utc_datetime'];

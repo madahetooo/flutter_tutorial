@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+  static String routeename = "/home" ;
 
   @override
   State<Home> createState() => _HomeState();
@@ -9,10 +10,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Map data = {};
-
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)?.settings.arguments as Map;
+    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map;
     print(data);
     String backgroundImage = data['isDayTime'] ? 'day.png' : 'night.png';
     Color backgroundColor = data['isDayTime'] ? Colors.blue : Colors.indigo;
@@ -37,8 +37,7 @@ class _HomeState extends State<Home> {
                 // ignore: deprecated_member_use
                 FlatButton.icon(
                     onPressed: () {
-                      //   Navigator.push(context,
-                      //       MaterialPageRoute(builder: (context) => const Loading()));
+                    Navigator.pushNamed(context, '/location');
                     },
                     icon: const Icon(
                       Icons.edit_location,
