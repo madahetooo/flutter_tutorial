@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/BMICalculator.dart';
-import 'package:flutter_tutorial/ListViewWidget.dart';
-import 'package:flutter_tutorial/ToastExample.dart';
+import 'package:flutter_tutorial/bmicalculator/BMICalculator.dart';
+import 'package:flutter_tutorial/basicwidgets/ListViewWidget.dart';
+import 'package:flutter_tutorial/basicwidgets/ToastExample.dart';
+import 'package:flutter_tutorial/todolistapp/TodoListWidget.dart';
+
+import 'GridViewExample.dart';
 
 class NavigationBarExample extends StatefulWidget {
   const NavigationBarExample({Key? key}) : super(key: key);
@@ -19,28 +22,26 @@ class _NavigationBarState extends State<NavigationBarExample> {
   }
 
   List<Widget> widgetScreens = <Widget>[
-    // ListViewWidget(),
-    // ToastExample(),
-    // BMICalculator(),
      Text('Home Screen',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
      Text('Search Screen',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
      Text('Porfile Screen',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
   ];
+
+
+
+  final _widgetExamples = [
+    GridViewExample(),
+    ListViewWidget(),
+    ToastExample(),
+    TodoListWidget(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("BottomNavigationBar"),
-      ),
-      body: Center(
 
-        // index: selectedIndex,
-        // children: const [
-        //   ListViewWidget(),
-        //   ToastExample(),
-        //   ListViewWidget()
-        // ],
-        child: widgetScreens.elementAt(selectedIndex),
+      body: Center(
+        child: _widgetExamples[selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
@@ -53,19 +54,24 @@ class _NavigationBarState extends State<NavigationBarExample> {
         currentIndex: selectedIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.grid_3x3),
             backgroundColor: Colors.blue,
-            label: 'Home',
+            label: 'Grid',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.list),
             backgroundColor: Colors.blue,
-            label: 'Search',
+            label: 'List',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.touch_app_sharp),
             backgroundColor: Colors.blue,
-            label: 'Profile',
+            label: 'Toast',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.check_circle_outline),
+            backgroundColor: Colors.blue,
+            label: 'Todolist',
           ),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/LoginScreen.dart';
-import 'package:flutter_tutorial/RegistrationScreen.dart';
+import 'package:flutter_tutorial/authsystem/LoginScreen.dart';
+import 'package:flutter_tutorial/authsystem/RegistrationScreen.dart';
 class TabbarWidget extends StatelessWidget {
   const TabbarWidget({Key? key}) : super(key: key);
 
@@ -14,8 +14,12 @@ class TabbarWidget extends StatelessWidget {
             title: const Text('Tabbar Widget App'),
             bottom: const TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.login),text: "Login"),
-                Tab(icon: Icon(Icons.app_registration),text: "Register"),
+                Tab(
+                    icon: Icon(Icons.login),
+                    text: "Login"),
+                Tab(
+                    icon: Icon(Icons.app_registration),
+                    text: "Register"),
               ],
             ),
           ),

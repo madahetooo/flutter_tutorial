@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/dbhelper.dart';
+import 'package:flutter_tutorial/todolistapp/dbhelper.dart';
 
 class TodoListWidget extends StatefulWidget {
   const TodoListWidget({Key? key}) : super(key: key);
@@ -132,13 +132,11 @@ class _TodoListWidgetState extends State<TodoListWidget> {
         } else {
           if (myTodos.length == 0) {
             return Scaffold(
-              backgroundColor: Colors.black,
               appBar: AppBar(
                 title: Text(
                   'My Tasks',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                backgroundColor: Colors.black,
                 centerTitle: true,
               ),
               floatingActionButton: FloatingActionButton(
@@ -155,13 +153,11 @@ class _TodoListWidgetState extends State<TodoListWidget> {
             );
           } else {
             return Scaffold(
-              backgroundColor: Colors.black,
               appBar: AppBar(
                 title: Text(
                   'My Tasks',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                backgroundColor: Colors.black,
                 centerTitle: true,
               ),
               floatingActionButton: FloatingActionButton(

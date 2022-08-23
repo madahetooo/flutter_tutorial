@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/BMICalculator.dart';
-import 'package:flutter_tutorial/NavigationBarExample.dart';
-import 'package:flutter_tutorial/TodoListWidget.dart';
+import 'package:flutter_tutorial/bmicalculator/BMICalculator.dart';
+import 'package:flutter_tutorial/basicwidgets/NavigationBarExample.dart';
+import 'package:flutter_tutorial/todolistapp/TodoListWidget.dart';
 import 'package:flutter_tutorial/worldtimeapp/home.dart';
 import 'package:flutter_tutorial/worldtimeapp/loading.dart';
 
@@ -82,45 +82,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TodoListWidget()));
-
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(35),
-                    margin: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 4),
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.green,
-                          offset: Offset(6.0, 6.0),
-                        ),
-                      ],
-                    ),
-                    child: const Text(
-                      "Todolist app",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: (){
-
-                    // Navigator.of(context).pushReplacement(context,'/home');
-                    // Navigator.pushNamed(context, '/home');
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>  Loading()));
-                    Navigator.of(context, rootNavigator: true).pushNamed("/home");
-
+                    Navigator.of(context, rootNavigator: true).pushNamed("/loading");
                   },
                   child: Container(
                     padding: const EdgeInsets.all(35),
@@ -156,24 +118,29 @@ class HomeScreen extends StatelessWidget {
                     // ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(35),
-                  margin: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 4),
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.green,
-                        offset: Offset(6.0, 6.0),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context, rootNavigator: true).pushNamed("/chatsscreen");
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(35),
+                    margin: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 4),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.green,
+                          offset: Offset(6.0, 6.0),
+                        ),
+                      ],
+                    ),
+                    child: const Text(
+                      "Chat App",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
-                    ],
-                  ),
-                  child: const Text(
-                    "Chat App",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
                     ),
                   ),
                 ),

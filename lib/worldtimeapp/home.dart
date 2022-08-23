@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-  static String routeename = "/home" ;
 
   @override
   State<Home> createState() => _HomeState();
@@ -36,8 +35,18 @@ class _HomeState extends State<Home> {
               children: [
                 // ignore: deprecated_member_use
                 FlatButton.icon(
-                    onPressed: () {
-                    Navigator.pushNamed(context, '/location');
+                    onPressed: () async {
+                      dynamic result = await Navigator.pushNamed(context, '/location');
+                      if(result != null){
+                        setState(() {
+                          data = {
+                            'time': result['time'],
+                            'location': result['location'],
+                            'isDaytime': result['isDaytime'],
+                            'flag': result['flag']
+                          };
+                        });
+                      }
                     },
                     icon: const Icon(
                       Icons.edit_location,
@@ -46,8 +55,7 @@ class _HomeState extends State<Home> {
                     label: const Text(
                       'Edit Location',
                       style: TextStyle(color: Colors.white),
-                    )),
-                SizedBox(
+                    )),                SizedBox(
                   height: 20.0,
                 ),
                 Row(
