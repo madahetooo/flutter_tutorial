@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum ChatMessageType { text, audio, image, video }
 
 enum MessageStatus { not_sent, not_view, viewed }
@@ -7,16 +9,26 @@ class ChatMessage {
   final ChatMessageType messageType;
   final MessageStatus messageStatus;
   final bool isSender;
+  final String? sender;
+  final String? senderImage;
+  final String? imageUrl;
+
 
   ChatMessage({
     this.text = '',
     required this.messageType,
     required this.messageStatus,
     required this.isSender,
+    this.sender,
+    this.senderImage,
+    this.imageUrl,
   });
 }
 
-List dummyChatMessages = [
+// class ChatMessages with ChangeNotifier{
+
+
+List <ChatMessage>dummyChatMessages = [
   ChatMessage(
     text: "Hi Imad",
     messageType: ChatMessageType.text,
@@ -60,3 +72,11 @@ List dummyChatMessages = [
     isSender: true,
   ),
 ];
+
+ // void addMesasge(ChatMessage message){
+ //   dummyChatMessages.add(message);
+ //   notifyListeners();
+ // }
+ //
+ // List<ChatMessage> get getMessageList => dummyChatMessages;
+ // }

@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/chatapp/models/ChatMessage.dart';
 import 'package:flutter_tutorial/ui/constants.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatInputField extends StatefulWidget {
   const ChatInputField({Key? key}) : super(key: key);
@@ -25,7 +30,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
         vertical: kDefaultPadding / 2,
       ),
@@ -73,7 +78,43 @@ class _ChatInputFieldState extends State<ChatInputField> {
                     ),
                     messageController.text.isEmpty
                         ? IconButton(
-                            onPressed: () async {},
+                            onPressed: () async {
+                              print('Gallery');
+                              XFile? file = await ImagePicker()
+                                  .pickImage(source: ImageSource.gallery);
+                              print(file!.path);
+
+                              final message = ChatMessage(
+                                messageType: ChatMessageType.image,
+                                messageStatus: MessageStatus.viewed,
+                                isSender: true,
+                                imageUrl: file.path,
+                              );
+
+                              final storage = FirebaseStorage.instance;
+                              final fireStore = FirebaseFirestore.instance;
+                              final user = FirebaseAuth.instance.currentUser;
+
+                              final ref = storage.ref().child('images').child(
+                                  DateTime.now().toIso8601String() + file.name);
+
+                              await ref.putFile(File(file.path));  // UPLOADED THE IMAGE
+                              final url = await ref.getDownloadURL();
+                              print(url);
+
+                              Map<String,dynamic> document =
+                              {
+                                'image' :url,
+                                'senderId': user?.uid,
+                                'senderName': user?.displayName,
+                                'senderImage' : user?.photoURL,
+                                'type' :1,
+                                'timestamp' : DateTime.now(),
+                              };
+                              fireStore.collection('messages').add(document).then((value) => print(value.id));
+
+
+                            },
                             icon: Icon(
                               Icons.attach_file,
                               color: Theme.of(context)
@@ -89,7 +130,55 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         : const SizedBox(),
                     messageController.text.isEmpty
                         ? IconButton(
-                            onPressed: () async {},
+                            onPressed: () async {
+
+                              print('Gallery');
+                              XFile? file = await ImagePicker()
+                                  .pickImage(source: ImageSource.camera);
+                              print(file!.path);
+                             final image = Image.file(File(file.path));
+                             print('widths : ${image.width}');
+                             print('height : ${image.height}');
+
+                              final message = ChatMessage(
+                                messageType: ChatMessageType.image,
+                                messageStatus: MessageStatus.viewed,
+                                isSender: true,
+                                imageUrl: file.path,
+                              );
+
+                              final storage = FirebaseStorage.instance;
+                              final fireStore = FirebaseFirestore.instance;
+                              final user = FirebaseAuth.instance.currentUser;
+                              final ref = storage.ref().child('images').child(
+                                  DateTime.now().toIso8601String() + file.name);
+
+                              await ref.putFile(File(file.path));  // UPLOADED THE IMAGE
+                              final url = await ref.getDownloadURL();
+                              print(url);
+
+
+                              Map<String,dynamic> document =
+                              {
+                                'image' :url,
+                                'senderId': user?.uid,
+                                'senderName': user?.displayName,
+                                'senderImage' : user?.photoURL,
+                                'type' :1,
+                                'timestamp' : DateTime.now(),
+                              };
+                              fireStore.collection('messages').add(document).then((value) => print(value.id));
+
+                              // await fireStore.collection('messages').add({
+                              //   'image' :url,
+                              //   'senderId': user?.uid,
+                              //   'senderName': user?.displayName,
+                              //   'senderImage' : user?.photoURL,
+                              //   'type' :1,
+                              //   'timestamp' : DateTime.now(),
+                              // }).then((value) => print(value.id));
+                              //
+                            },
                             icon: Icon(
                               Icons.camera_alt_outlined,
                               color: Theme.of(context)
@@ -106,8 +195,11 @@ class _ChatInputFieldState extends State<ChatInputField> {
                     messageController.text.isNotEmpty
                         ? IconButton(
                             onPressed: () async {
+
+
                               final user = FirebaseAuth.instance.currentUser;
                               final message = messageController.text;
+                              messageController.clear();
                               print(message);
                               final messageDoc = {
                                 'message': message,

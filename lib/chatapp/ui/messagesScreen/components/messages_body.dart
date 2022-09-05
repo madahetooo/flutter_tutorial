@@ -14,7 +14,7 @@ class MessagesBody extends StatelessWidget {
           child: Padding(padding: EdgeInsets.all(kDefaultPadding),
             child: ListView.builder(
               itemCount: dummyChatMessages.length,
-              itemBuilder: (context, index)=> Message(message: dummyChatMessages[index]),
+              itemBuilder: (context, index)=> Message(message: dummyChatMessages[index],index: index,),
             ),
           ),
         ),
