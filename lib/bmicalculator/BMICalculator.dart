@@ -157,6 +157,8 @@ class _BMICalculatorState extends State<BMICalculator> {
       currentIndex = index;
     });
   }
+
+
   void calculateBmi(double height, double weight) {
     double finalResult = weight / (height * height / 10000);
     String bmiResult = finalResult.toStringAsFixed(2);

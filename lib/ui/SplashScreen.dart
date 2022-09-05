@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_tutorial/basicwidgets/TabbarWidget.dart';
+import 'package:flutter_tutorial/firebase_options.dart';
 import 'package:flutter_tutorial/ui/welcome_screen.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return const Scaffold(
       backgroundColor: Colors.blue,
       body: SpinKitRotatingCircle(

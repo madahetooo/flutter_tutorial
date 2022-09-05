@@ -10,11 +10,13 @@ class MessagesBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(padding: EdgeInsets.all(kDefaultPadding),
-        child: ListView.builder(
-          itemCount: dummyChatMessages.length,
-            itemBuilder: (context, index)=> Message(message: dummyChatMessages[index]),
-        ),
+        Expanded(
+          child: Padding(padding: EdgeInsets.all(kDefaultPadding),
+            child: ListView.builder(
+              itemCount: dummyChatMessages.length,
+              itemBuilder: (context, index)=> Message(message: dummyChatMessages[index]),
+            ),
+          ),
         ),
         ChatInputField(),
       ],

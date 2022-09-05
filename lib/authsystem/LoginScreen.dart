@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/HomeScreen.dart';
 import 'package:flutter_tutorial/authsystem/RegistrationScreen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -50,32 +52,44 @@ class _LoginScreenState extends State<LoginScreen> {
       borderRadius: BorderRadius.circular(30),
       color: Colors.red,
       child: MaterialButton(
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10) ,
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              HomeScreen()));
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        onPressed: () async {
+          final _googleSignIn = GoogleSignIn();
+          final googleAccount = await _googleSignIn.signIn();
+          print(googleAccount!.email);
+          final googleCredential = await googleAccount.authentication;
+          final authCredential = GoogleAuthProvider.credential(
+              idToken: googleCredential.idToken,
+              accessToken: googleCredential.accessToken);
+          final firebaseUser =  await FirebaseAuth.instance.signInWithCredential(authCredential);
+          print(firebaseUser.user!.uid);
+          print(firebaseUser.user!.displayName);
+          print(firebaseUser.user!.email);
+          print(firebaseUser.user!.phoneNumber);
+          print(firebaseUser.user!.photoURL);
+          print(firebaseUser.user!.emailVerified);
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeScreen()));
         },
         child: const Text(
-            "Login",
+          "Login",
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-          ),
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
-          child:  Padding(
+          child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children:<Widget> [
+              children: <Widget>[
                 SizedBox(
                   height: 180,
                   child: Image.asset(
@@ -92,24 +106,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget> [
+                  children: <Widget>[
                     const Text("Don't have an account!?"),
                     GestureDetector(
-                      onTap:(){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                        RegistrationScreen()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegistrationScreen()));
                       },
-                      child: const Text("Sign Up",
-                      style: TextStyle(
-                        color: Colors.redAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15
-                      ),),
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                            color: Colors.redAccent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
                     ),
-
                   ],
                 )
-
               ],
             ),
           ),

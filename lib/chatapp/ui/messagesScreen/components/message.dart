@@ -8,7 +8,7 @@ class Message extends StatelessWidget {
     Key? key,
     required this.message,
   }) : super(key: key);
-final ChatMessage message;
+  final ChatMessage message;
   @override
   Widget build(BuildContext context) {
     Widget messageContaint(ChatMessage message){
@@ -21,12 +21,23 @@ final ChatMessage message;
           return SizedBox();
       }
     }
-    return Padding(padding: EdgeInsets.only(top: kDefaultPadding),
-      child: Row(
-        mainAxisAlignment: message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
-
+    return Padding(
+      padding: EdgeInsets.only(top: kDefaultPadding),
+      child: Container(
+        child: Row(
+          mainAxisAlignment: message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: [
+            if(!message.isSender) ...[
+              CircleAvatar(
+                radius: 18,
+                child: Image.asset("assets/user.png"),
+              ),
+              SizedBox(width: kDefaultPadding / 2,),
+            ],
+            TextMessage(message: message)
+          ],
+        ),
       ),
     );
-    return Container();
   }
 }

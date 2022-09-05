@@ -1,6 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/basicwidgets/TabbarWidget.dart';
 import 'package:flutter_tutorial/ui/constants.dart';
+
+import '../firebase_options.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

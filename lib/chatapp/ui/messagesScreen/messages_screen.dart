@@ -1,57 +1,54 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/chatapp/ui/messagesScreen/components/messages_body.dart';
 import 'package:flutter_tutorial/ui/constants.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class MessagesScreen extends StatefulWidget {
-  const MessagesScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MessagesScreen> createState() => _MessagesScreenState();
-}
-
-class _MessagesScreenState extends State<MessagesScreen> {
+class MessagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: MessagesBody(),
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Row(
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage("assets/user.png"),
-          ),
-          SizedBox(
-            width: kDefaultPadding * 0.5,
-          ),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Eslam Medhat",
+                "Friendly Chat",
                 style: TextStyle(fontSize: 16),
               ),
-              Text(
-                "Active 3m ago",
-                style: TextStyle(fontSize: 12),
-              )
+
             ],
-          ),
+          )
         ],
       ),
       actions: [
         IconButton(
+          icon: Icon(Icons.local_phone),
           onPressed: () {},
-          icon: Icon(Icons.phone),
         ),
         IconButton(
-          onPressed: () {},
           icon: Icon(Icons.videocam),
+          onPressed: () {},
         ),
+        IconButton(
+          icon: Icon(Icons.logout),
+          onPressed: () async {
+            await GoogleSignIn().signOut();
+            await  FirebaseAuth.instance.signOut();
+            Navigator.of(context).pop();
+          },
+        ),
+        SizedBox(width: kDefaultPadding / 2),
       ],
     );
   }
